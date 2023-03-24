@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
-ARG GO_VER=1.17.5
+ARG GO_VER=1.18
 ARG ALPINE_VER=3.14
 
 FROM golang:${GO_VER}-alpine${ALPINE_VER} as build
@@ -9,7 +9,7 @@ ADD . $GOPATH/go-contract
 WORKDIR $GOPATH/go-contract
 
 ENV GOPROXY=https://goproxy.cn,direct
-RUN go build -o go-contract .
+RUN go build -o /go/bin/go-contract .
 
 FROM golang:${GO_VER}-alpine${ALPINE_VER}
 
