@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
-ARG GO_VER=1.17.5
+ARG GO_VER=1.18
 ARG ALPINE_VER=3.14
 
 FROM golang:${GO_VER}-alpine${ALPINE_VER} as build
@@ -14,10 +14,10 @@ RUN apk add --no-cache \
 	make \
 	musl-dev
 
-ADD . $GOPATH/src/github.com/hyperledger-labs/fabric-builder-k8s/samples/go-contract
-WORKDIR $GOPATH/src/github.com/hyperledger-labs/fabric-builder-k8s/samples/go-contract
+ADD . $GOPATH/go-contract
+WORKDIR $GOPATH/go-contract
 
-RUN go install ./...
+RUN go build -o /go/bin/go-contract .
 
 FROM golang:${GO_VER}-alpine${ALPINE_VER}
 
